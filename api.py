@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from get_data import get_data_row
+from fastapi import FastAPI, Path
+from get_data import get_row_by_index, get_row_by_date
 from task import get_statistic
 
 app = FastAPI()
@@ -11,9 +11,15 @@ app = FastAPI()
 
 
 @app.get("/get-item/{item_id}")
-def get_item(item_id: int) -> str:
-    values = get_data_row(index=item_id)
+def get_by_index(item_id: int = Path(None, description="row index")) -> str:
+    values = get_row_by_index(index=item_id)
     return values
+
+
+@app.get("/get-by-date")
+def get_by_date(date: str) -> str:
+    row = get_row_by_date(date)
+    return row
 
 
 @app.get("/get-stat/{month}/{column}/{stat}")
