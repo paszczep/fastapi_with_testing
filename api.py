@@ -23,6 +23,6 @@ def get_by_date(date: str) -> str:
 
 
 @app.get("/get-stat/{month}/{column}/{stat}")
-def get_stat(month: str, column: str, stat: str) -> float:
-    statistic = get_statistic(month=month, col=column, stat=stat)
+def get_stat(month: str, column: str, statistic: str) -> float:
+    statistic = get_statistic(month=month, column=column, statistic=statistic)
     return statistic

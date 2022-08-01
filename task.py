@@ -4,9 +4,9 @@ from typing import Union
 from get_data import get_data
 
 
-def get_statistic(month: Union[str, pd.Timestamp], col: str, stat: str) -> float:
+def get_statistic(month: Union[str, pd.Timestamp], column: str, statistic: str) -> float:
     data = get_data()
-    selected_series = data.loc[data.index.to_period('M') == month, col]
+    selected_series = data.loc[data.index.to_period('M') == month, column]
 
     mapping = {
         'min': DataFrame.min,
@@ -14,6 +14,6 @@ def get_statistic(month: Union[str, pd.Timestamp], col: str, stat: str) -> float
         'mean': DataFrame.mean,
         'median': DataFrame.median}
 
-    result = mapping[stat](selected_series)
+    result = mapping[statistic](selected_series)
     result = round(result, 2)
     return result
