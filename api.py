@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Path
-from get_data import get_row_by_index, get_row_by_date
+from get_data import get_row_by_index, get_row_by_date, DATA_LENGTH
 from task import get_statistic
 
 app = FastAPI()
 
 
-# @app.get("/")
-# def home():
-#     return 'home'
+@app.get("/data-length")
+def home() -> int:
+    return DATA_LENGTH
 
 
 @app.get("/get-by-index/{item_id}")
