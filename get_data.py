@@ -14,11 +14,14 @@ def get_data() -> pd.DataFrame:
 
 def get_row_by_index(index: int) -> str:
     df = get_data().reset_index()
-    row_dict = df.iloc[index].to_dict()
+    row = df.iloc[index]
+    row.Date = row.Date.date()
+    row_dict = row.to_dict()
     return json.dumps(row_dict, default=str)
 
 
 def get_row_by_date(date: str) -> str:
-    df = get_data().reset_index()
-    row_dict = df.loc[df.Date == date].to_dict()
+    df = get_data()
+    row = df.loc[df.index == date].reset_index()
+    row_dict = row.to_dict(orient='records').pop()
     return json.dumps(row_dict, default=str)

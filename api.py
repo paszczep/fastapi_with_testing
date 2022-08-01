@@ -10,7 +10,7 @@ app = FastAPI()
 #     return 'home'
 
 
-@app.get("/get-item/{item_id}")
+@app.get("/get-by-index/{item_id}")
 def get_by_index(item_id: int = Path(None, description="row index")) -> str:
     values = get_row_by_index(index=item_id)
     return values

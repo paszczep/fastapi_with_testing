@@ -11,13 +11,17 @@ def check_code(response):
 
 
 def test_index():
-    response = client.get("get-item/0")
+    response = client.get("get-by-index/0")
     assert check_code(response)
-    assert check_keys_presence(json.loads(response.json()).keys())
+    response_keys = json.loads(response.json()).keys()
+    assert check_keys_presence(response_keys)
 
 
 def test_date():
-    pass
+    response = client.get("get-by-date?date=2016-07-22")
+    assert check_code(response)
+    response_keys = json.loads(response.json()).keys()
+    assert check_keys_presence(response_keys)
 
 
 def test_stat():
