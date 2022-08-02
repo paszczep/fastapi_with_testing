@@ -42,7 +42,7 @@ def test_get_data_row_by_index():
     assert check_data_row(row)
 
 
-def get_existing_date():
+def get_existing_dates():
     pass
 
 

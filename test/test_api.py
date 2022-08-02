@@ -25,4 +25,7 @@ def test_date():
 
 
 def test_stat():
-    pass
+    response = client.get("get-stat/2017-07/High/max")
+    assert check_code(response)
+    # print(response.text)
+    # assert
