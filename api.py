@@ -1,25 +1,27 @@
 from fastapi import FastAPI, Path
-from get_data import get_row_by_index, get_row_by_date, DATA_LENGTH
+from get_data import get_row_by_index, get_row_by_date, get_available_dates
 from task import get_statistic
+import json
 
 app = FastAPI()
 
 
-@app.get("/data-length")
-def home() -> int:
-    return DATA_LENGTH
+@app.get("/existing-dates")
+def existing() -> str:
+    dates = get_available_dates()
+    return json.dumps(dates)
 
 
 @app.get("/get-by-index/{item_id}")
 def get_by_index(item_id: int = Path(None, description="row index")) -> str:
     values = get_row_by_index(index=item_id)
-    return values
+    return json.dumps(values)
 
 
 @app.get("/get-by-date")
 def get_by_date(date: str) -> str:
     row = get_row_by_date(date)
-    return row
+    return json.dumps(row)
 
 
 @app.get("/get-stat/{month}/{column}/{statistic}")
