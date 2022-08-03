@@ -1,7 +1,6 @@
 import pandas as pd
-import json
 from pathlib import Path
-from typing import Union
+import csv
 
 BASE_DIR = Path(__file__).resolve().parent
 INPUT_FILE_PATH = BASE_DIR / "data.csv"
@@ -10,12 +9,18 @@ INDEX_COL = 'Date'
 DATE_FORMAT = '%Y-%m-%d'
 
 
+def write_row(row_dict):
+    with open(INPUT_FILE_PATH, 'a', encoding='UTF8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=DATA_COLS)
+        writer.writerow(rowdict=row_dict)
+
+
 def get_data(file_path: Path = INPUT_FILE_PATH, usecols: set = DATA_COLS) -> pd.DataFrame:
     data = pd.read_csv(file_path, usecols=list(usecols), index_col=INDEX_COL, parse_dates=True)
     return data
 
 
-def get_available_dates(file_path: Path = INPUT_FILE_PATH) -> list:
+def get_existing_dates(file_path: Path = INPUT_FILE_PATH) -> list:
     available_dates = pd.read_csv(file_path, usecols=[INDEX_COL], index_col=INDEX_COL, parse_dates=False)
     return list(available_dates.index)
 

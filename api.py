@@ -1,14 +1,45 @@
 from fastapi import FastAPI, Path
-from get_data import get_row_by_index, get_row_by_date, get_available_dates
-from task import get_statistic
 import json
+from pydantic import BaseModel
+from typing import Optional
+from datetime import datetime
+from get_data import DATE_FORMAT, get_row_by_index, get_row_by_date, get_existing_dates, write_row
+from task import get_statistic
 
 app = FastAPI()
 
 
+class Row(BaseModel):
+    Name: str
+    Date: Optional[str] = datetime.now().strftime(DATE_FORMAT)
+    Open: float
+    High: float
+    Low: float
+    Close: float
+    Volume: int
+
+    def return_dict(self) -> dict:
+        row_dict = {'Date': self.Date,
+                    'Open': round(self.Open, 4),
+                    'High': round(self.High, 4),
+                    'Low': round(self.Low, 4),
+                    'Close': round(self.Close, 4),
+                    'Volume': self.Volume}
+        return row_dict
+
+
+@app.post("/create")
+def create_row(item: Row):
+    dates = get_existing_dates()
+    if item.Date in dates:
+        return {"Error": "Already exists"}
+    else:
+        write_row(item.return_dict())
+
+
 @app.get("/existing-dates")
 def existing() -> str:
-    dates = get_available_dates()
+    dates = get_existing_dates()
     return json.dumps(dates)
 
 
