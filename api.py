@@ -38,7 +38,7 @@ def create_row(item: Row):
 
 
 @app.get("/existing-dates")
-def existing() -> str:
+def get_existing_dates() -> str:
     dates = get_existing_dates()
     return json.dumps(dates)
 
