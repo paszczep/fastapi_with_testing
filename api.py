@@ -3,7 +3,7 @@ import json
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
-from get_data import DATE_FORMAT, get_row_by_index, get_row_by_date, get_existing_dates, write_row
+from get_data import DATE_FORMAT, get_row_by_index, get_row_by_date, get_all_dates, write_row
 from task import get_statistic
 
 app = FastAPI()
@@ -28,9 +28,14 @@ class Row(BaseModel):
         return row_dict
 
 
-@app.post("/create")
-def create_row(item: Row):
-    dates = get_existing_dates()
+# @app.put("/update")
+# def update_row():
+#     pass
+
+
+@app.post("/add")
+def add_row(item: Row):
+    dates = get_all_dates()
     if item.Date in dates:
         return {"Error": "Already exists"}
     else:
@@ -39,20 +44,22 @@ def create_row(item: Row):
 
 @app.get("/existing-dates")
 def get_existing_dates() -> str:
-    dates = get_existing_dates()
+    dates = get_all_dates()
     return json.dumps(dates)
 
 
 @app.get("/get-by-index/{item_id}")
 def get_by_index(item_id: int = Path(None, description="row index")) -> str:
     values = get_row_by_index(index=item_id)
-    return json.dumps(values)
+    values = json.dumps(values)
+    return values
 
 
 @app.get("/get-by-date")
 def get_by_date(date: str) -> str:
     row = get_row_by_date(date)
-    return json.dumps(row)
+    row = json.dumps(row)
+    return row
 
 
 @app.get("/get-stat/{month}/{column}/{statistic}")

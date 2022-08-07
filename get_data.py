@@ -20,7 +20,7 @@ def get_data(file_path: Path = INPUT_FILE_PATH, usecols: set = DATA_COLS) -> pd.
     return data
 
 
-def get_existing_dates(file_path: Path = INPUT_FILE_PATH) -> list:
+def get_all_dates(file_path: Path = INPUT_FILE_PATH) -> list:
     available_dates = pd.read_csv(file_path, usecols=[INDEX_COL], index_col=INDEX_COL, parse_dates=False)
     return list(available_dates.index)
 
