@@ -2,18 +2,18 @@ from fastapi import FastAPI, Path
 import json
 from get_data import get_row_by_index, get_row_by_date, get_all_dates
 from task import get_statistic
-from row import Row, UpdateRow
+from row import NewRow, UpdateRow
 
 app = FastAPI()
 
 
 @app.put("/update/{date_index}")
 def update_row(date_index: str, row: UpdateRow):
-    pass
+    print(date_index, UpdateRow.return_dict())
 
 
 @app.post("/add")
-def add_row(item: Row):
+def add_row(item: NewRow):
     dates = get_all_dates()
     if item.Date in dates:
         return {"Error": "Already exists"}

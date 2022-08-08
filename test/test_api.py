@@ -21,6 +21,7 @@ def test_index():
     assert check_status_code(response)
     response_keys = json.loads(response.json()).keys()
     assert check_keys_presence(response_keys)
+    # ToDo test value format: datetime, floats, int
 
 
 def test_date():
