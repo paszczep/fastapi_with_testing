@@ -1,36 +1,15 @@
 from fastapi import FastAPI, Path
 import json
-from pydantic import BaseModel
-from typing import Optional
-from datetime import datetime
-from get_data import DATE_FORMAT, get_row_by_index, get_row_by_date, get_all_dates, write_row
+from get_data import get_row_by_index, get_row_by_date, get_all_dates
 from task import get_statistic
+from row import Row, UpdateRow
 
 app = FastAPI()
 
 
-class Row(BaseModel):
-    Name: str
-    Date: Optional[str] = datetime.now().strftime(DATE_FORMAT)
-    Open: float
-    High: float
-    Low: float
-    Close: float
-    Volume: int
-
-    def return_dict(self) -> dict:
-        row_dict = {'Date': self.Date,
-                    'Open': round(self.Open, 4),
-                    'High': round(self.High, 4),
-                    'Low': round(self.Low, 4),
-                    'Close': round(self.Close, 4),
-                    'Volume': self.Volume}
-        return row_dict
-
-
-# @app.put("/update")
-# def update_row():
-#     pass
+@app.put("/update/{date_index}")
+def update_row(date_index: str, row: UpdateRow):
+    pass
 
 
 @app.post("/add")
@@ -39,7 +18,7 @@ def add_row(item: Row):
     if item.Date in dates:
         return {"Error": "Already exists"}
     else:
-        write_row(item.return_dict())
+        item.write_row_to_file()
 
 
 @app.get("/existing-dates")
