@@ -6,11 +6,7 @@ from datetime import datetime
 from get_data import DATE_FORMAT, INPUT_FILE_PATH, DATA_COLS
 
 
-# class Row():
-#    def return_dict
-
-
-class NewRow(BaseModel):
+class Row(BaseModel):
     Name: str
     Date: Optional[str] = datetime.now().strftime(DATE_FORMAT)
     Open: float
@@ -28,6 +24,9 @@ class NewRow(BaseModel):
                     'Volume': self.Volume}
         return row_dict
 
+
+class NewRow(Row):
+
     def write_row_to_file(self):
         row_dict = self.return_dict()
         with open(INPUT_FILE_PATH, 'a', encoding='UTF8', newline='') as f:
@@ -35,7 +34,7 @@ class NewRow(BaseModel):
             writer.writerow(rowdict=row_dict)
 
 
-class UpdateRow(BaseModel):
+class UpdateRow(Row):
     Name: Optional[str] = None
     Date: Optional[str] = None
     Open: Optional[float] = None
@@ -43,7 +42,3 @@ class UpdateRow(BaseModel):
     Low: Optional[float] = None
     Close: Optional[float] = None
     Volume: Optional[int] = None
-
-    # def return_dict(self):
-    #     row_dict = self.NewRow.return_dict()
-    #     return row_dict
