@@ -1,14 +1,19 @@
 from fastapi import FastAPI, Path
 from typing import Union
 import json
-from data import read_row_by_index, read_row_by_date, read_existing_data_dates
+from data import read_row_by_index, read_row_by_date, read_existing_data_dates, delete_row
 from task import get_statistic
 from row import NewRow, UpdateRow
 
 app = FastAPI()
 
 
-@app.put("/update/")
+@app.delete("/delete")
+def drop_row(date_index: Union[str, int]):
+    delete_row(date_index)
+
+
+@app.put("/update")
 def update_row(row: UpdateRow):
     row.update_data_with_row()
 
