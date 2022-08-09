@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
 from api import app
 from random import choice
-from test.test_task import check_keys_presence, check_values, get_row_by_date
+from test.test_task import check_keys_presence, check_values, read_row_by_date
 import json
 
 client = TestClient(app)
@@ -34,7 +34,7 @@ def test_date():
     response_keys = json.loads(response.json()).keys()
     assert check_keys_presence(response_keys)
     response_row = json.loads(response.json())
-    direct_row = get_row_by_date(date_choice)
+    direct_row = read_row_by_date(date_choice)
     assert response_row == direct_row
 
 

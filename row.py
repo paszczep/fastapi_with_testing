@@ -1,13 +1,11 @@
-import csv
-# from pandas import DataFrame
 from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
-from get_data import DATE_FORMAT, INPUT_FILE_PATH, DATA_COLS
+from data import update_data_row, write_row_to_file, DATE_FORMAT
 
 
 class Row(BaseModel):
-    Name: str
+    # Name: str
     Date: Optional[str] = datetime.now().strftime(DATE_FORMAT)
     Open: float
     High: float
@@ -26,19 +24,19 @@ class Row(BaseModel):
 
 
 class NewRow(Row):
-
     def write_row_to_file(self):
         row_dict = self.return_dict()
-        with open(INPUT_FILE_PATH, 'a', encoding='UTF8', newline='') as f:
-            writer = csv.DictWriter(f, fieldnames=DATA_COLS)
-            writer.writerow(rowdict=row_dict)
+        write_row_to_file(row_dict)
 
 
 class UpdateRow(Row):
-    Name: Optional[str] = None
-    Date: Optional[str] = None
+    # Name: Optional[str] = None
+    Date: str
     Open: Optional[float] = None
     High: Optional[float] = None
     Low: Optional[float] = None
     Close: Optional[float] = None
     Volume: Optional[int] = None
+
+    def update_data_with_row(self):
+        update_data_row(self.return_dict())
