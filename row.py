@@ -1,12 +1,12 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Union
 from datetime import datetime
 from data import update_data_row, write_row_to_file, DATE_FORMAT
 
 
 class Row(BaseModel):
     # Name: str
-    Date: Optional[str] = datetime.now().strftime(DATE_FORMAT)
+    Date: Optional[Union[str]] = datetime.now().strftime(DATE_FORMAT)
     Open: float
     High: float
     Low: float
@@ -31,7 +31,7 @@ class NewRow(Row):
 
 class UpdateRow(Row):
     # Name: Optional[str] = None
-    Date: str
+    Date: Union[str, int]
     Open: Optional[float] = None
     High: Optional[float] = None
     Low: Optional[float] = None

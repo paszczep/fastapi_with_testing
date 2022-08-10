@@ -21,18 +21,21 @@ def test_index():
     assert check_status_code(response)
     response_keys = json.loads(response.json()).keys()
     assert check_keys_presence(response_keys)
-    # ToDo test value format: datetime, floats, int
+    # ToDo test value format: date, floats, int
 
 
 def test_date():
     existing_dates = client.get("existing-dates")
     assert check_status_code(existing_dates)
+
     existing_dates = json.loads(existing_dates.json())
     date_choice = choice(existing_dates)
     response = client.get(f"get-by-date?date={date_choice}")
     assert check_status_code(response)
+
     response_keys = json.loads(response.json()).keys()
     assert check_keys_presence(response_keys)
+
     response_row = json.loads(response.json())
     direct_row = read_row_by_date(date_choice)
     assert response_row == direct_row
@@ -41,3 +44,7 @@ def test_date():
 def test_stat():
     assertion = check_values(get_stat_value)
     assert assertion
+
+
+def test_add():
+    pass

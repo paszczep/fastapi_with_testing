@@ -4,8 +4,11 @@ from pathlib import Path
 from csv import DictWriter
 
 BASE_DIR = Path(__file__).resolve().parent
+# DATA_DIR = BASE_DIR / 'data'
 INPUT_FILE_PATH = BASE_DIR / "data.csv"
-DATA_COLS = ('Date', 'Open', 'High', 'Low', 'Close', 'Volume')
+DATA_COLS = ('Date', 'Open', 'High', 'Low', 'Close', 'Volume',
+             # 'Transactions'
+             )
 INDEX_COL = 'Date'
 DATE_FORMAT = '%Y-%m-%d'
 
