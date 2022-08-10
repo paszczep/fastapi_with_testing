@@ -5,18 +5,15 @@ from typing import Callable
 from pathlib import Path
 from data import INPUT_FILE_PATH, DATA_COLS, BASE_DIR, read_data, read_row_by_index, read_row_by_date
 
-# ToDo Separate test dataset
-# test_data = pd.read_csv('test\\tests.csv')
 
-
-def get_test_data(base_dir: Path = BASE_DIR) -> pd.DataFrame:
+def get_test_template(base_dir: Path = BASE_DIR) -> pd.DataFrame:
     test_data_file = base_dir / 'test' / 'tests.csv'
     test_data = pd.read_csv(test_data_file)
     return test_data
 
 
 def check_values(func: Callable) -> bool:
-    test_data = get_test_data()
+    test_data = get_test_template()
     test_data['result'] = test_data.apply(
         lambda row: func(month=row['month'], column=row['col'], statistic=row['stat']), axis=1)
     assertion = test_data['result'].equals(test_data['output'])

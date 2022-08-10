@@ -3,12 +3,11 @@ from pandas import DataFrame
 from pathlib import Path
 from csv import DictWriter
 
+INDICATOR_NAME = "SPAMEGG"
 BASE_DIR = Path(__file__).resolve().parent
-# DATA_DIR = BASE_DIR / 'data'
-INPUT_FILE_PATH = BASE_DIR / "data.csv"
-DATA_COLS = ('Date', 'Open', 'High', 'Low', 'Close', 'Volume',
-             # 'Transactions'
-             )
+DATA_DIR = BASE_DIR / 'data'
+INPUT_FILE_PATH = DATA_DIR / f"{INDICATOR_NAME}_1440.csv"
+DATA_COLS = ('Date', 'Open', 'High', 'Low', 'Close', 'Volume', 'Transactions')
 INDEX_COL = 'Date'
 DATE_FORMAT = '%Y-%m-%d'
 
@@ -43,10 +42,10 @@ def read_csv_data_file(file_path: Path = INPUT_FILE_PATH, **kwargs) -> DataFrame
 
 def delete_row(date_index):
     data = read_csv_data_file()
-    drop_row = data.drop(index=date_index, inplace=True)
+    drop_row_to_archive = data.drop(index=date_index, inplace=True)
     save_to_file(data=data)
-    print(drop_row)
-    return drop_row
+    # ToDo archive row ?
+    return drop_row_to_archive
 
 
 def read_data(usecols: set = DATA_COLS) -> DataFrame:

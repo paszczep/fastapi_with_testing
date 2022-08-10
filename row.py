@@ -5,8 +5,8 @@ from data import update_data_row, write_row_to_file, DATE_FORMAT
 
 
 class Row(BaseModel):
-    # Name: str
-    Date: Optional[Union[str]] = datetime.now().strftime(DATE_FORMAT)
+    Name: str
+    Date: Union[str, int]
     Open: float
     High: float
     Low: float
