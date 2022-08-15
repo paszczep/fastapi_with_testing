@@ -41,11 +41,10 @@ def read_csv_data_file(file_path: Path = INPUT_FILE_PATH, **kwargs) -> DataFrame
     return data
 
 
-def delete_row(date_index):
+def delete_row(date_index: str) -> DataFrame:
     data = read_csv_data_file()
     drop_row = data.drop(index=date_index, inplace=True)
     save_to_file(data=data)
-    print(drop_row)
     return drop_row
 
 
