@@ -3,7 +3,8 @@ import pandas as pd
 import os
 from typing import Callable
 from pathlib import Path
-from src.data import INPUT_FILE_PATH, DATA_COLS, BASE_DIR, read_data, read_row_by_index, read_row_by_date
+from random import choice
+from src.data import INPUT_FILE_PATH, DATA_COLS, BASE_DIR, read_data, read_row_by_index, read_row_by_date, read_existing_data_dates
 
 # ToDo Separate test dataset
 # test_data = pd.read_csv('test\\tests.csv')
@@ -49,6 +50,6 @@ def test_get_data_row_by_index():
 
 
 def test_get_data_row_by_date():
-    # ToDo actually read row by date_index, check value types
-    row = read_row_by_date('0')
+    existing_date = choice(read_existing_data_dates())
+    row = read_row_by_date(existing_date)
     assert check_row_keys(row)

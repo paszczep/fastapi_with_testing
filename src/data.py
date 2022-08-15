@@ -3,9 +3,9 @@ from pandas import DataFrame
 from pathlib import Path
 from csv import DictWriter
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 # DATA_DIR = BASE_DIR / 'data'
-INPUT_FILE_PATH = BASE_DIR / "data.csv"
+INPUT_FILE_PATH = BASE_DIR / 'data' / "data.csv"
 DATA_COLS = ('Date', 'Open', 'High', 'Low', 'Close', 'Volume',
              # 'Transactions'
              )
