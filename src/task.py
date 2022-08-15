@@ -1,7 +1,7 @@
 import pandas as pd
 from pandas import DataFrame as DataFrame
 from typing import Union
-from data import read_data
+from src.data import read_data
 
 
 def get_statistic(month: Union[str, pd.Timestamp], column: str, statistic: str) -> float:

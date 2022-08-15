@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from api import app
+from src.api import app
 from random import choice
 from test.test_task import check_keys_presence, check_values, read_row_by_date
 import json

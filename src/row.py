@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, Union
 from datetime import datetime
-from data import update_data_row, write_row_to_file, DATE_FORMAT
+from src.data import update_data_row, write_row_to_file, DATE_FORMAT
 
 
 class Row(BaseModel):

@@ -1,9 +1,9 @@
-from task import get_statistic
+from src.task import get_statistic
 import pandas as pd
 import os
 from typing import Callable
 from pathlib import Path
-from data import INPUT_FILE_PATH, DATA_COLS, BASE_DIR, read_data, read_row_by_index, read_row_by_date
+from src.data import INPUT_FILE_PATH, DATA_COLS, BASE_DIR, read_data, read_row_by_index, read_row_by_date
 
 # ToDo Separate test dataset
 # test_data = pd.read_csv('test\\tests.csv')
