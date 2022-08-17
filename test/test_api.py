@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from src.api import app
+from .src.api import app
 from random import choice
 from test.test_task import check_keys_presence, check_values, read_row_by_date
 import json
@@ -41,10 +41,10 @@ def test_date():
     assert response_row == direct_row
 
 
-def test_stat():
-    assertion = check_values(get_stat_value)
-    assert assertion
-
-
-def test_add():
-    pass
+# def test_stat():
+#     assertion = check_values(get_stat_value)
+#     assert assertion
+#
+#
+# def test_add():
+#     pass
