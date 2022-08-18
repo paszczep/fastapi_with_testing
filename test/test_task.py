@@ -44,12 +44,20 @@ def check_row_keys(row: dict) -> bool:
     return check_keys_presence(list(row.keys()))
 
 
+def check_row_value_data_types(row: dict) -> bool:
+    data_type_dict = {'Date': str, 'Open': float, 'High': float, 'Low': float, 'Close': float, 'Volume': int}
+    checks = [(type(value) == data_type_dict[key]) for key, value in row.items()]
+    return all(checks)
+
+
 def test_get_data_row_by_index():
     row = read_row_by_index(0)
     assert check_row_keys(row)
+    assert check_row_value_data_types(row)
 
 
 def test_get_data_row_by_date():
     existing_date = choice(read_existing_data_dates())
     row = read_row_by_date(existing_date)
     assert check_row_keys(row)
+    assert check_row_value_data_types(row)

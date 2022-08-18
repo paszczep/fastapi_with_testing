@@ -1,7 +1,7 @@
 from fastapi.testclient import TestClient
-from .src.api import app
+from src.api import app
 from random import choice
-from test.test_task import check_keys_presence, check_values, read_row_by_date
+from .test_task import check_keys_presence, check_values, read_row_by_date, check_row_value_data_types
 import json
 
 client = TestClient(app)
@@ -21,7 +21,7 @@ def test_index():
     assert check_status_code(response)
     response_keys = json.loads(response.json()).keys()
     assert check_keys_presence(response_keys)
-    # ToDo test value format: date, floats, int
+    assert check_row_value_data_types(json.loads(response.json()))
 
 
 def test_date():
@@ -40,7 +40,7 @@ def test_date():
     direct_row = read_row_by_date(date_choice)
     assert response_row == direct_row
 
-
+# ToDo Check stat, add, delete, update
 # def test_stat():
 #     assertion = check_values(get_stat_value)
 #     assert assertion
